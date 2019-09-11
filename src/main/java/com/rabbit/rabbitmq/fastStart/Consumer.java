@@ -1,9 +1,6 @@
 package com.rabbit.rabbitmq.fastStart;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.*;
 
 /**
  * @Author: chengjindong
@@ -35,6 +32,18 @@ public class Consumer { //5.6.0
 
         // 6.设置channel
         channel.basicConsume(queueName,true,queueingConsumer);
+
+        // 7.获取消息
+
+        while (true){
+            QueueingConsumer.Delivery delivery = queueingConsumer.nextDelivery();
+            String message = new String(delivery.getBody());
+
+            System.out.println("消费者: " + message);
+
+//            Envelope envelope = delivery.getEnvelope();
+//            long deliveryTag = envelope.getDeliveryTag();
+        }
 
 
     }
