@@ -27,10 +27,15 @@ public class Consumer { //5.6.0
         Channel channel = connection.createChannel();
 
         // 4.声明一个队列
-        channel.queueDeclare("test001",true,false,false,null);
+        String queueName = "test001";
+        channel.queueDeclare(queueName,true,false,false,null);
 
         // 5.创建消费者
         QueueingConsumer queueingConsumer = new QueueingConsumer(channel);
+
+        // 6.设置channel
+        channel.basicConsume(queueName,true,queueingConsumer);
+
 
     }
 }
